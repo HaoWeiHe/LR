@@ -1,0 +1,5 @@
+From a clean install of Mac OS X Lion, what I had to do is the following:
+
+
+$ brew install hdf5
+$ sudo pip install h5py
