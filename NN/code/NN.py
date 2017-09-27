@@ -24,7 +24,7 @@ def load_data():
 
 
 def sigmoid(z):
-	return  1/(1 + np.exp(-1*z))
+	return  1.0 /(1 + np.exp(-1*z))
 
 
 def activator(W, X, b):
@@ -53,69 +53,70 @@ def optimize(W,b, X,Y, learning_rate,  iteration_number):
 	# lost = cost
 
 	return W, b, lost
-def predict(W,X,b):
-	num_m = X.shape[1]
 
+
+def predict(W, b, X):
+	num_m = X.shape[1]
 	Y_prediction = np.zeros((1, num_m))
-	
 
 	# remember that activator(W,X, b ) return a matric
+	A = activator(W,X,b)
+
 	for i in range(0, num_m):
-		Y_prediction[0][i] = 1 if activator(W,X,b)[0][i] > 0.5 else 0
+		Y_prediction[0][i] = 1 if A[0][i] > 0.5 else 0
 	
 		
 	return Y_prediction
 
 def propagate(W,b,X,Y):
 	
-
 	num_m = X.shape[1]
 
+	
 	A = activator(W,X,b)
-	# print("A: ", A)
 	
-	cost = -1 * (np.dot( Y, np.log(A).T) + np.dot((1-Y), np.log(1-A).T)) / num_m 
 	
-	### why this line ?
+	cost = -1.0/num_m * (np.dot(Y, np.log(A).T) + np.dot((1-Y), np.log(1-A).T))  
+	
+	### squeeze : 1*m -> m (change to scale) / m*1 -> m (change to scale) / 3*m -> 3*m(no change)
 	cost = np.squeeze(cost)
 	
-	dw = np.dot(X,(A-Y).T) / num_m
-	db = np.sum(A - Y).T / num_m
- 		
+
+	dw = np.dot(X, (A-Y).T) / num_m
+	db = np.sum(A-Y)/ num_m
+ 	
+
 	paramter = {'db':db, 'dw':dw}
+
 
 	return paramter, cost
 
 def run(train_set_x, train_set_y, test_set_x, test_set_y, iteration_number , learning_rate ):
 
-
 	# reshape X to dim (wid * len * 3, m ) 
 	test_set_x_flatten = test_set_x.reshape(test_set_x.shape[0] , -1).T
 	train_set_x_flatten = train_set_x.reshape(train_set_x.shape[0] , -1).T
-	print(test_set_x_flatten.shape)
-	test_set_x_flatten =test_set_x_flatten/255
-	train_set_x_flatten = train_set_x_flatten/255
-	print(test_set_x_flatten.shape)
-	print(test_set_x_flatten[0])
-	# dim(X) = (n, m ) -> dim(w) = (n, 1)
-	W , b = np.zeros((train_set_x_flatten.shape[0],1)),0
 	
-	
-    
-    
-	# gradient decent
-	W, b, lost = optimize(W,b, train_set_x_flatten,train_set_y, learning_rate,  iteration_number)
+	test_set_x_flatten = test_set_x_flatten / 255.
+	train_set_x_flatten = train_set_x_flatten / 255.
 
-	Y_prediction_test = predict(W, test_set_x_flatten, b)
-	Y_prediction_train = predict(W, train_set_x_flatten, b)
+	# dim(X) = (n, m ) -> dim(w) = (n, 1)
+	W, b = np.zeros((train_set_x_flatten.shape[0],1)), 0
+	
+ 
+	# gradient decent
+	W, b, lost = optimize(W,b, train_set_x_flatten, train_set_y, learning_rate,  iteration_number)
+
+
+	Y_prediction_train = predict(W, b, train_set_x_flatten)
+	Y_prediction_test = predict(W, b, test_set_x_flatten)
+	
 
 	print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - train_set_y)) * 100))
 	print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - test_set_y)) * 100))
 	
 
 if __name__ == '__main__':
-    
-	
+
 	test_set_y, test_set_x, list_classes, train_set_y, train_set_x = load_data()
-	
 	run(train_set_x, train_set_y, test_set_x, test_set_y, 2000, 0.005)
