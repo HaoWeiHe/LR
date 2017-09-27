@@ -52,8 +52,7 @@ def optimize(W,b, X,Y, learning_rate,  iteration_number):
 	
 	# lost = cost
 
-	return W, b, lost, paramter
-
+	return W, b, lost
 def predict(W,X,b):
 	num_m = X.shape[1]
 
@@ -73,12 +72,12 @@ def propagate(W,b,X,Y):
 	num_m = X.shape[1]
 
 	A = activator(W,X,b)
-
+	# print("A: ", A)
 	
 	cost = -1 * (np.dot( Y, np.log(A).T) + np.dot((1-Y), np.log(1-A).T)) / num_m 
 	
 	### why this line ?
-	# cost = np.squeeze(cost)
+	cost = np.squeeze(cost)
 	
 	dw = np.dot(X,(A-Y).T) / num_m
 	db = np.sum(A - Y).T / num_m
@@ -89,19 +88,15 @@ def propagate(W,b,X,Y):
 
 def run(train_set_x, train_set_y, test_set_x, test_set_y, iteration_number , learning_rate ):
 
-	'''
-	dim(X) = [n, m ]
-	dim(Y) = [1, m]
-	dim(W) = [n, 1]
-	'''
 
 	# reshape X to dim (wid * len * 3, m ) 
 	test_set_x_flatten = test_set_x.reshape(test_set_x.shape[0] , -1).T
 	train_set_x_flatten = train_set_x.reshape(train_set_x.shape[0] , -1).T
-
-	# test_set_x_flatten = test_set_x_flatten/255
-	# train_set_x_flatten = train_set_x_flatten/255
-	
+	print(test_set_x_flatten.shape)
+	test_set_x_flatten =test_set_x_flatten/255
+	train_set_x_flatten = train_set_x_flatten/255
+	print(test_set_x_flatten.shape)
+	print(test_set_x_flatten[0])
 	# dim(X) = (n, m ) -> dim(w) = (n, 1)
 	W , b = np.zeros((train_set_x_flatten.shape[0],1)),0
 	
@@ -114,13 +109,13 @@ def run(train_set_x, train_set_y, test_set_x, test_set_y, iteration_number , lea
 	Y_prediction_test = predict(W, test_set_x_flatten, b)
 	Y_prediction_train = predict(W, train_set_x_flatten, b)
 
-	print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
-	print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+	print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - train_set_y)) * 100))
+	print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - test_set_y)) * 100))
 	
 
 if __name__ == '__main__':
     
 	
 	test_set_y, test_set_x, list_classes, train_set_y, train_set_x = load_data()
-	run(train_set_x, train_set_y, test_set_x, test_set_y, 1000, 0.005)
 	
+	run(train_set_x, train_set_y, test_set_x, test_set_y, 2000, 0.005)
