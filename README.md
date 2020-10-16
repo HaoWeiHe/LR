@@ -1,9 +1,9 @@
 
 # LR model 
 
-LR model shows how logistic regression works. I wrote this for challenging myself to deal with all the details from scratch.
+This "LR model" demonstrates how logistic regression works. I wrote this for challenging myself to deal with all the details from scratch.
 
-Logistic regression model is a classifier. LR assume data obey Bernoulli Distrbution and LR use sigmoid as it's link funcion. (see the section below - why sigmoid function - to get more information)
+Logistic regression is a classification algorithm. LR assume data follow Bernoulli Distrbution and use sigmoid as it's link funcion (see the section below - why sigmoid function - to get more information).
 
 ## What's New
 
