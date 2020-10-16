@@ -8,7 +8,7 @@ Logistic regression is a classification algorithm. LR assume data follow Bernoul
 ## What's New
 
 ```
-This code use serveral function to demo the different stage of model training. 
+Use serveral functions to demo the different stage of model training. 
 ```
 * The `load_data` functrion is for preprocessing the training/testing corpuse. It's do not require any arguemnts (usefixed path). Return Y for test, X for test, classes list, Y for training and X for training, respectively.
 * The `activator` functrion is for the activateon purpose. It requires 3 arguments including weights, X and bisa, respectively. Return the resulf from sigmoid function.
