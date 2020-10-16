@@ -18,10 +18,3 @@ Logistic regression model is a classifier. LR assume data obey Bernoulli Distrbu
 * The `propagate` functrion is an assistant function for 'optimize'.  It requires wights, bias, X and Y, respectively. Return db, dw and cost. 
 * The `run` functrion is the key function and collects above functions together. In this function you can see the training/testing process step by step. It requires 6 arguments X for training, Y for training, X for testing, Y for testing, expected iteration number and expected learning rate, respectively. 
 
-
-
-### Why sigmoid ?
-
-* Because sigmoid is the `canonical linked function of Bernoulli's principle`. One distribuition can have many linked function as long as it follow:
-1) can be inversed 2)domian is from {-inf, inf}/ 3) range is (0,1). However, cononical linked function just have one. Acturally, the inversted function of canonical linked function is `activate function`. 
-* canonical linked function can be more efficient because it's sufficient statistic on average.
