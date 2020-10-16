@@ -33,7 +33,6 @@ LR model has been tested on Python 2.7.
 
 * miniconda (https://docs.conda.io/en/latest/miniconda.html)
 
-## Building LR model
 
 ### Install all required dependencies
 
