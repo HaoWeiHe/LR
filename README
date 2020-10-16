@@ -21,4 +21,6 @@ Logistic regression model is a classifier. LR assume data obey Bernoulli Distrbu
 
 ## Why sigmoid ?
 
-*
+* Because sigmoid is the `canonical linked function of Bernoulli's principle`. One distribuition can have many linked function as long as it follow:
+1) can be inversed 2)domian is from {-inf, inf}/ 3) range is (0,1). However, cononical linked function just have one. Acturally, the inversted function of canonical linked function is `activate function`. 
+* canonical linked function can be more efficient because it's sufficient statistic on average.
