@@ -31,7 +31,7 @@ Logistic regression is a classification algorithm. LR assume data follow Bernoul
 LR model has been tested on Python 2.7.
 
 ### Preparing Dependencies
-* miniconda (https://docs.conda.io/en/latest/miniconda.html)
+* miniconda[https://docs.conda.io/en/latest/miniconda.html]
 
 ### Install all required dependencies
 ```conda env create -f freeze.yml```
